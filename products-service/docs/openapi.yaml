@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: Products API
+  version: "1.0"
+  description: >
+    Serverless CRUD for products of a multi-company, multi-store catalog.
+    Every route is scoped by company; a product belongs to one store of that company.
+    Requests to Azure need the `x-functions-key` header.
+servers:
+  - url: http://localhost:7071/api
+  - url: https://{app}.azurewebsites.net/api
+    variables:
+      app:
+        default: products-func
+security:
+  - functionKey: []
+paths:
+  /companies/{companyId}/products:
+    parameters:
+      - $ref: "#/components/parameters/CompanyId"
+    get:
+      summary: List products
+      operationId: listProducts
+      parameters:
+        - $ref: "#/components/parameters/StoreId"
+        - { name: page, in: query, schema: { type: integer, minimum: 1, default: 1 } }
+        - { name: pageSize, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 20 } }
+      responses:
+        "200":
+          description: A page of products ordered by SKU.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ProductPage" }
+        "400": { $ref: "#/components/responses/ValidationProblem" }
+    post:
+      summary: Create a product
+      description: Inserted through the `dbo.usp_InsertProduct` stored procedure. SKU is unique per store.
+      operationId: createProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProductRequest" }
+      responses:
+        "201":
+          description: Created.
+          headers:
+            Location: { schema: { type: string, format: uri } }
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Product" }
+        "400": { $ref: "#/components/responses/ValidationProblem" }
+        "409": { $ref: "#/components/responses/Problem" }
+        "415": { description: Body is not JSON. }
+  /companies/{companyId}/products/catalog:
+    parameters:
+      - $ref: "#/components/parameters/CompanyId"
+    get:
+      summary: Catalog as a single JSON object
+      description: Returns the output of the `dbo.fn_GetProductsJson` scalar function unchanged.
+      operationId: getProductCatalog
+      parameters:
+        - $ref: "#/components/parameters/StoreId"
+      responses:
+        "200":
+          description: Catalog.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Catalog" }
+        "400": { $ref: "#/components/responses/ValidationProblem" }
+  /companies/{companyId}/products/{productId}:
+    parameters:
+      - $ref: "#/components/parameters/CompanyId"
+      - { name: productId, in: path, required: true, schema: { type: string, format: uuid } }
+    get:
+      summary: Get a product
+      operationId: getProduct
+      responses:
+        "200":
+          description: The product.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Product" }
+        "404": { $ref: "#/components/responses/Problem" }
+    put:
+      summary: Replace a product
+      operationId: updateProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProductRequest" }
+      responses:
+        "200":
+          description: Updated product.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Product" }
+        "400": { $ref: "#/components/responses/ValidationProblem" }
+        "404": { $ref: "#/components/responses/Problem" }
+        "409": { $ref: "#/components/responses/Problem" }
+        "415": { description: Body is not JSON. }
+    delete:
+      summary: Delete a product
+      operationId: deleteProduct
+      responses:
+        "204": { description: Deleted. }
+        "404": { $ref: "#/components/responses/Problem" }
+components:
+  securitySchemes:
+    functionKey:
+      type: apiKey
+      in: header
+      name: x-functions-key
+  parameters:
+    CompanyId:
+      name: companyId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    StoreId:
+      name: storeId
+      in: query
+      required: false
+      description: Only products of this store.
+      schema: { type: string, format: uuid }
+  responses:
+    Problem:
+      description: RFC 9457 problem details.
+      content:
+        application/problem+json:
+          schema: { $ref: "#/components/schemas/ProblemDetails" }
+    ValidationProblem:
+      description: One or more fields are invalid.
+      content:
+        application/problem+json:
+          schema: { $ref: "#/components/schemas/ValidationProblemDetails" }
+  schemas:
+    ProductRequest:
+      type: object
+      required: [storeId, sku, name, price, currency, stockQuantity]
+      properties:
+        storeId: { type: string, format: uuid }
+        sku: { type: string, pattern: "^[A-Za-z0-9._-]{1,50}$", example: cafe-250 }
+        name: { type: string, maxLength: 200, example: Café torrado 250g }
+        description: { type: string, maxLength: 2000, nullable: true }
+        price: { type: number, minimum: 0, description: "Up to 15 integer digits and 4 decimals.", example: 32.9 }
+        currency: { type: string, description: ISO 4217 code., example: BRL }
+        stockQuantity: { type: integer, minimum: 0, example: 120 }
+        isActive: { type: boolean, default: true }
+    Product:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        companyId: { type: string, format: uuid }
+        storeId: { type: string, format: uuid }
+        sku: { type: string, description: Stored upper-case., example: CAFE-250 }
+        name: { type: string }
+        description: { type: string, nullable: true }
+        price: { type: number }
+        currency: { type: string }
+        stockQuantity: { type: integer }
+        isActive: { type: boolean }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    ProductPage:
+      type: object
+      properties:
+        items: { type: array, items: { $ref: "#/components/schemas/Product" } }
+        page: { type: integer }
+        pageSize: { type: integer }
+        totalCount: { type: integer }
+        totalPages: { type: integer }
+    Catalog:
+      type: object
+      properties:
+        companyId: { type: string, format: uuid }
+        storeId: { type: string, format: uuid, nullable: true }
+        totalCount: { type: integer }
+        products: { type: array, items: { $ref: "#/components/schemas/Product" } }
+    ProblemDetails:
+      type: object
+      properties:
+        type: { type: string }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+    ValidationProblemDetails:
+      allOf:
+        - $ref: "#/components/schemas/ProblemDetails"
+        - type: object
+          properties:
+            errors:
+              type: object
+              additionalProperties: { type: array, items: { type: string } }
