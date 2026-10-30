@@ -1,0 +1,467 @@
+{
+  "info": {
+    "_postman_id": "3eca2ea1-179e-5ab6-9142-060667b6aedd",
+    "name": "Backend Assessment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "ListCompanies",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies?page=1&pageSize=20",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetCompany",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies/1198dd94-5d7b-493c-882b-09b8f44a668c",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CreateCompany",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Pão de Queijo Ltda\",\n    \"countryCode\": \"BR\"\n}"
+        },
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteCompany",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies/1198dd94-5d7b-493c-882b-09b8f44a668c",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ListStores",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/stores?page=1&pageSize=20",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "stores"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetStore",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/stores/e8deb660-fadc-4dd4-99b9-9df51892fc61",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "stores",
+            "e8deb660-fadc-4dd4-99b9-9df51892fc61"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CreateStore",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"code\": \"SP-002\",\n    \"name\": \"Faria Lima\",\n    \"address\": {\n        \"street\": \"Av. Brigadeiro Faria Lima, 2000\",\n        \"city\": \"São Paulo\",\n        \"state\": \"SP\",\n        \"postalCode\": \"01452-000\",\n        \"countryCode\": \"BR\"\n    },\n    \"currency\": \"BRL\",\n    \"timeZone\": \"America/Sao_Paulo\",\n    \"culture\": \"pt-BR\"\n}"
+        },
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/stores",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "stores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdateStore",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"code\": \"SP-001\",\n    \"name\": \"Paulista\",\n    \"address\": {\n        \"street\": \"Av. Paulista, 1000\",\n        \"city\": \"São Paulo\",\n        \"state\": \"SP\",\n        \"postalCode\": \"01310-100\",\n        \"countryCode\": \"BR\"\n    },\n    \"currency\": \"BRL\",\n    \"timeZone\": \"America/Sao_Paulo\",\n    \"culture\": \"pt-BR\"\n}"
+        },
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/stores/e8deb660-fadc-4dd4-99b9-9df51892fc61",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "stores",
+            "e8deb660-fadc-4dd4-99b9-9df51892fc61"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteStore",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://stores-api-2uayzqsjmsjvi.azurewebsites.net/api/v1/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/stores/e8deb660-fadc-4dd4-99b9-9df51892fc61",
+          "protocol": "https",
+          "host": [
+            "stores-api-2uayzqsjmsjvi",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "stores",
+            "e8deb660-fadc-4dd4-99b9-9df51892fc61"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ListProducts",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-functions-key",
+            "value": "INy3GcBZ4id0K-8qSmb_33RGCuEmEqpGwBxK7UVkKwd0AzFuFg1OkQ=="
+          }
+        ],
+        "url": {
+          "raw": "https://products-func-ae3ts324t6bam.azurewebsites.net/api/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/products?page=1&pageSize=20",
+          "protocol": "https",
+          "host": [
+            "products-func-ae3ts324t6bam",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "products"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "pageSize",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetProductCatalog",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-functions-key",
+            "value": "INy3GcBZ4id0K-8qSmb_33RGCuEmEqpGwBxK7UVkKwd0AzFuFg1OkQ=="
+          }
+        ],
+        "url": {
+          "raw": "https://products-func-ae3ts324t6bam.azurewebsites.net/api/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/products/catalog",
+          "protocol": "https",
+          "host": [
+            "products-func-ae3ts324t6bam",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "products",
+            "catalog"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetProduct",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-functions-key",
+            "value": "INy3GcBZ4id0K-8qSmb_33RGCuEmEqpGwBxK7UVkKwd0AzFuFg1OkQ=="
+          }
+        ],
+        "url": {
+          "raw": "https://products-func-ae3ts324t6bam.azurewebsites.net/api/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/products/93b665fe-09d4-f111-bf5b-70a8a56eff9b",
+          "protocol": "https",
+          "host": [
+            "products-func-ae3ts324t6bam",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "products",
+            "93b665fe-09d4-f111-bf5b-70a8a56eff9b"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CreateProduct",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-functions-key",
+            "value": "INy3GcBZ4id0K-8qSmb_33RGCuEmEqpGwBxK7UVkKwd0AzFuFg1OkQ=="
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"storeId\": \"e8deb660-fadc-4dd4-99b9-9df51892fc61\",\n    \"sku\": \"ACAI-1L\",\n    \"name\": \"Açaí 1L\",\n    \"description\": \"Polpa de açaí congelada\",\n    \"price\": 24.5,\n    \"currency\": \"BRL\",\n    \"stockQuantity\": 40,\n    \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "https://products-func-ae3ts324t6bam.azurewebsites.net/api/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/products",
+          "protocol": "https",
+          "host": [
+            "products-func-ae3ts324t6bam",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdateProduct",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-functions-key",
+            "value": "INy3GcBZ4id0K-8qSmb_33RGCuEmEqpGwBxK7UVkKwd0AzFuFg1OkQ=="
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"storeId\": \"e8deb660-fadc-4dd4-99b9-9df51892fc61\",\n    \"sku\": \"CAFE-250\",\n    \"name\": \"Café torrado 250g\",\n    \"description\": \"Grãos 100% arábica\",\n    \"price\": 34.9,\n    \"currency\": \"BRL\",\n    \"stockQuantity\": 100,\n    \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "https://products-func-ae3ts324t6bam.azurewebsites.net/api/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/products/93b665fe-09d4-f111-bf5b-70a8a56eff9b",
+          "protocol": "https",
+          "host": [
+            "products-func-ae3ts324t6bam",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "products",
+            "93b665fe-09d4-f111-bf5b-70a8a56eff9b"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteProduct",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "x-functions-key",
+            "value": "INy3GcBZ4id0K-8qSmb_33RGCuEmEqpGwBxK7UVkKwd0AzFuFg1OkQ=="
+          }
+        ],
+        "url": {
+          "raw": "https://products-func-ae3ts324t6bam.azurewebsites.net/api/companies/1198dd94-5d7b-493c-882b-09b8f44a668c/products/93b665fe-09d4-f111-bf5b-70a8a56eff9b",
+          "protocol": "https",
+          "host": [
+            "products-func-ae3ts324t6bam",
+            "azurewebsites",
+            "net"
+          ],
+          "path": [
+            "api",
+            "companies",
+            "1198dd94-5d7b-493c-882b-09b8f44a668c",
+            "products",
+            "93b665fe-09d4-f111-bf5b-70a8a56eff9b"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
